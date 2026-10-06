@@ -29,12 +29,23 @@ export function GridTileImage({
       )}
     >
       {props.src ? (
-        <Image
-          className={clsx("relative h-full w-full object-contain", {
-            "mt-photo": isInteractive,
-          })}
-          {...props}
-        />
+        typeof props.src === "string" && props.src.startsWith("http") ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={props.src}
+            alt={typeof props.alt === "string" ? props.alt : ""}
+            className={clsx("relative h-full w-full object-contain", {
+              "mt-photo": isInteractive,
+            })}
+          />
+        ) : (
+          <Image
+            className={clsx("relative h-full w-full object-contain", {
+              "mt-photo": isInteractive,
+            })}
+            {...props}
+          />
+        )
       ) : null}
       {label ? (
         <Label
