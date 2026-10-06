@@ -1,61 +1,47 @@
 import CartModal from "components/cart/modal";
-import LogoSquare from "components/logo-square";
-import { getMenu } from "lib/shopify";
-import { Menu } from "lib/shopify/types";
+import { HeaderShell } from "components/brand/header-shell";
+import { NavLinks } from "components/brand/nav-links";
+import { Wordmark } from "components/brand/wordmark";
+import { navigation } from "lib/brand";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { Suspense } from "react";
 import MobileMenu from "./mobile-menu";
-import Search, { SearchSkeleton } from "./search";
-
-const { SITE_NAME } = process.env;
 
 export async function Navbar() {
-  const menu = await getMenu("next-js-frontend-header-menu");
-
   return (
-    <nav className="relative flex items-center justify-between p-4 lg:px-6">
-      <div className="block flex-none md:hidden">
-        <Suspense fallback={null}>
-          <MobileMenu menu={menu} />
-        </Suspense>
-      </div>
-      <div className="flex w-full items-center">
-        <div className="flex w-full md:w-1/3">
+    <HeaderShell>
+      <div className="flex h-[4.5rem] items-center justify-between gap-3 px-4 md:px-8">
+        <div className="flex min-w-0 items-center gap-3 xl:gap-8">
+          <div className="xl:hidden">
+            <Suspense fallback={null}>
+              <MobileMenu menu={navigation} />
+            </Suspense>
+          </div>
           <Link
             href="/"
             prefetch={true}
-            className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6"
+            aria-label="MI TEMPS, accueil"
+            className="min-w-0"
           >
-            <LogoSquare />
-            <div className="ml-2 flex-none text-sm font-medium uppercase md:hidden lg:block">
-              {SITE_NAME}
-            </div>
+            <Wordmark />
           </Link>
-          {menu.length ? (
-            <ul className="hidden gap-6 text-sm md:flex md:items-center">
-              {menu.map((item: Menu) => (
-                <li key={item.title}>
-                  <Link
-                    href={item.path}
-                    prefetch={true}
-                    className="text-neutral-500 underline-offset-4 hover:text-black hover:underline dark:text-neutral-400 dark:hover:text-neutral-300"
-                  >
-                    {item.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          ) : null}
+          <NavLinks items={navigation} />
         </div>
-        <div className="hidden justify-center md:flex md:w-1/3">
-          <Suspense fallback={<SearchSkeleton />}>
-            <Search />
-          </Suspense>
-        </div>
-        <div className="flex justify-end md:w-1/3">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <Link
+            href="/search"
+            aria-label="Rechercher un équipement"
+            className="hidden h-11 w-11 items-center justify-center text-white xl:flex"
+          >
+            <MagnifyingGlassIcon className="h-4 w-4" />
+          </Link>
           <CartModal />
+          <Link href="/devis" className="mt-btn hidden shrink-0 sm:inline-flex">
+            Demander un devis
+          </Link>
         </div>
       </div>
-    </nav>
+    </HeaderShell>
   );
 }

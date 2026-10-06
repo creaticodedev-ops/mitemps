@@ -19,7 +19,7 @@ export async function generateMetadata(props: {
     description:
       collection.seo?.description ||
       collection.description ||
-      `${collection.title} products`,
+      `Équipements ${collection.title} — MI TEMPS`,
   };
 }
 
@@ -41,9 +41,11 @@ export default async function CategoryPage(props: {
   return (
     <section>
       {products.length === 0 ? (
-        <p className="py-3 text-lg">{`No products found in this collection`}</p>
+        <p className="text-lg text-[#c8c8c8]">
+          Aucun équipement dans cette catégorie.
+        </p>
       ) : (
-        <Grid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <Grid className="grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
           <ProductGridItems products={products} />
         </Grid>
       )}

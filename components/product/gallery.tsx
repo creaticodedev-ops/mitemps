@@ -27,16 +27,16 @@ export function Gallery({
     imageIndex === 0 ? images.length - 1 : imageIndex - 1;
 
   const buttonClassName =
-    "h-full px-6 transition-all ease-in-out hover:scale-110 hover:text-black dark:hover:text-white flex items-center justify-center";
+    "flex h-full items-center justify-center px-6 text-white/70 transition-colors duration-300 hover:text-white";
 
   return (
     <form>
-      <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden">
+      <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#0c0c0c] md:aspect-[5/6]">
         {images[imageIndex] && (
           <Image
-            className="h-full w-full object-contain"
+            className="mt-product h-full w-full object-contain p-8"
             fill
-            sizes="(min-width: 1024px) 66vw, 100vw"
+            sizes="(min-width: 1024px) 58vw, 100vw"
             alt={images[imageIndex]?.altText as string}
             src={images[imageIndex]?.src as string}
             priority={true}
@@ -45,7 +45,7 @@ export function Gallery({
 
         {images.length > 1 ? (
           <div className="absolute bottom-[15%] flex w-full justify-center">
-            <div className="mx-auto flex h-11 items-center rounded-full border border-white bg-neutral-50/80 text-neutral-500 backdrop-blur-sm dark:border-black dark:bg-neutral-900/80">
+            <div className="mx-auto flex h-11 items-center border border-white/20 bg-[#050505]/70 text-white backdrop-blur-md">
               <button
                 formAction={() => updateImage(previousImageIndex.toString())}
                 aria-label="Previous product image"

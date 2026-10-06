@@ -4,7 +4,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <div className="w-full">
-        <div className="mx-8 max-w-2xl py-20 sm:mx-auto">{children}</div>
+        <div className="mx-auto max-w-3xl px-5 pt-32 pb-24 md:px-10">
+          {children}
+        </div>
       </div>
       <Footer />
     </>

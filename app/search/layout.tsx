@@ -12,17 +12,25 @@ export default function SearchLayout({
 }) {
   return (
     <>
-      <div className="mx-auto flex max-w-(--breakpoint-2xl) flex-col gap-8 px-4 pb-4 text-black md:flex-row dark:text-white">
-        <div className="order-first w-full flex-none md:max-w-[125px]">
+      <div className="mx-auto flex max-w-[1600px] flex-col gap-10 px-5 pt-28 pb-20 md:px-10 lg:flex-row lg:gap-14 lg:px-14">
+        <div className="w-full flex-none lg:w-52">
           <Collections />
         </div>
-        <div className="order-last min-h-screen w-full md:order-none">
-          <Suspense fallback={null}>
-            <ChildrenWrapper>{children}</ChildrenWrapper>
-          </Suspense>
+        <div className="min-w-0 flex-1">
+          <p className="text-[11px] tracking-[0.22em] text-[#7a7a7a] uppercase">
+            Catalogue
+          </p>
+          <h1 className="mt-3 text-4xl tracking-[-0.045em] md:text-6xl">
+            Équipez vos espaces.
+          </h1>
+          <div className="mt-12">
+            <Suspense fallback={null}>
+              <ChildrenWrapper>{children}</ChildrenWrapper>
+            </Suspense>
+          </div>
         </div>
-        <div className="order-none flex-none md:order-last md:w-[125px]">
-          <FilterList list={sorting} title="Sort by" />
+        <div className="w-full flex-none lg:w-44">
+          <FilterList list={sorting} title="Trier" />
         </div>
       </div>
       <Footer />

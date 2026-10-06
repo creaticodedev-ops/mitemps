@@ -2,17 +2,18 @@
 
 export default function Error({ reset }: { reset: () => void }) {
   return (
-    <div className="mx-auto my-4 flex max-w-xl flex-col rounded-lg border border-neutral-200 bg-white p-8 md:p-12 dark:border-neutral-800 dark:bg-black">
-      <h2 className="text-xl font-bold">Oh no!</h2>
-      <p className="my-2">
-        There was an issue with our storefront. This could be a temporary issue,
-        please try your action again.
+    <div className="mx-auto my-28 flex max-w-xl flex-col border border-white/10 bg-[#0a0a0a] px-8 py-12">
+      <p className="text-[11px] tracking-[0.22em] text-[#8a8a8a] uppercase">
+        Interruption
       </p>
-      <button
-        className="mx-auto mt-4 flex w-full items-center justify-center rounded-full bg-blue-600 p-4 tracking-wide text-white hover:opacity-90"
-        onClick={() => reset()}
-      >
-        Try Again
+      <h2 className="mt-4 text-4xl tracking-[-0.04em]">
+        Une erreur est survenue.
+      </h2>
+      <p className="mt-4 text-sm leading-relaxed text-[#c8c8c8]">
+        L’affichage n’a pas pu aboutir. Vous pouvez relancer la page.
+      </p>
+      <button className="mt-btn mt-8 w-fit" onClick={() => reset()}>
+        Réessayer
       </button>
     </div>
   );

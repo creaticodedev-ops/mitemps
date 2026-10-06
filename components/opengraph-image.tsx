@@ -12,7 +12,7 @@ export default async function OpengraphImage(
 ): Promise<ImageResponse> {
   const { title } = {
     ...{
-      title: process.env.SITE_NAME,
+      title: "MI TEMPS",
     },
     ...props,
   };
@@ -27,6 +27,7 @@ export default async function OpengraphImage(
           <LogoIcon width="64" height="58" fill="white" />
         </div>
         <p tw="mt-12 text-6xl font-bold text-white">{title}</p>
+        <p tw="mt-4 text-2xl tracking-widest text-neutral-400">OASIS GROUP</p>
       </div>
     ),
     {

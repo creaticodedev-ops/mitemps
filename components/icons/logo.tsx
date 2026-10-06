@@ -4,13 +4,12 @@ export default function LogoIcon(props: React.ComponentProps<"svg">) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      aria-label={`${process.env.SITE_NAME} logo`}
-      viewBox="0 0 32 28"
+      aria-label="MI TEMPS"
+      viewBox="0 0 32 32"
       {...props}
-      className={clsx("h-4 w-4 fill-black dark:fill-white", props.className)}
+      className={clsx("h-4 w-4 text-white", props.className)}
     >
-      <path d="M21.5758 9.75769L16 0L0 28H11.6255L21.5758 9.75769Z" />
-      <path d="M26.2381 17.9167L20.7382 28H32L26.2381 17.9167Z" />
+      <path d="M2 2h28v1.5H2zM2 2h1.5v28H2zM8 15.2h16v1.5H8z" fill="white" />
     </svg>
   );
 }

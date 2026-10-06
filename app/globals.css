@@ -3,30 +3,308 @@
 @plugin "@tailwindcss/container-queries";
 @plugin "@tailwindcss/typography";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans:
+    var(--font-geist-sans), "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-serif: var(--font-instrument), Georgia, "Times New Roman", serif;
+  --color-ink: #050505;
+  --color-ink-2: #0a0a0a;
+  --color-ink-3: #111111;
+  --color-steel: #1b1b1b;
+  --color-ash: #333333;
+  --color-mute: #666666;
+  --color-mist: #e8e8e8;
+  --color-paper: #f4f4f4;
+}
+
 @layer base {
   *,
   ::after,
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
+    border-color: rgba(255, 255, 255, 0.12);
   }
-}
 
-@media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
+    scroll-behavior: smooth;
+    background: #050505;
+  }
+
+  body {
+    background: #050505;
+    color: #f4f4f4;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: #ffffff;
+    color: #050505;
+  }
+
+  [id] {
+    scroll-margin-top: 6.5rem;
   }
 }
 
-@supports (font: -apple-system-body) and (-webkit-appearance: none) {
-  img[loading="lazy"] {
-    clip-path: inset(0.6px);
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 
 a,
 input,
-button {
-  @apply focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-50 dark:focus-visible:ring-neutral-600 dark:focus-visible:ring-offset-neutral-900;
+button,
+textarea,
+select {
+  @apply focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[#050505];
+}
+
+.font-editorial {
+  font-family: var(--font-instrument), Georgia, "Times New Roman", serif;
+}
+
+@layer components {
+  .mt-btn,
+  .mt-btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0.85rem 1.25rem;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    line-height: 1;
+    white-space: nowrap;
+    text-transform: uppercase;
+    transition:
+      background-color 0.45s ease,
+      color 0.45s ease,
+      border-color 0.45s ease;
+  }
+
+  .mt-btn {
+    background: #ffffff;
+    color: #050505;
+  }
+
+  .mt-btn:hover {
+    background: #e8e8e8;
+  }
+
+  .mt-btn-ghost {
+    border: 1px solid rgba(255, 255, 255, 0.38);
+    background: transparent;
+    color: #ffffff;
+  }
+
+  .mt-btn-ghost:hover {
+    border-color: #ffffff;
+    background: #ffffff;
+    color: #050505;
+  }
+}
+
+.mt-link {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0 1px;
+  transition: background-size 0.45s ease;
+}
+
+.mt-link:hover {
+  background-size: 100% 1px;
+}
+
+.skip-link {
+  position: absolute;
+  top: -4rem;
+  left: 1rem;
+  z-index: 80;
+  background: #ffffff;
+  color: #050505;
+  padding: 0.6rem 0.9rem;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+.mt-cursor-dot {
+  display: none;
+}
+
+html.mt-cursor .mt-cursor-dot {
+  display: block;
+}
+
+html.mt-cursor,
+html.mt-cursor body,
+html.mt-cursor a,
+html.mt-cursor button {
+  cursor: none;
+}
+
+html.mt-cursor input,
+html.mt-cursor textarea,
+html.mt-cursor select {
+  cursor: auto;
+}
+
+@keyframes mt-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 1.15rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes mt-image {
+  from {
+    opacity: 0;
+    transform: scale(1.08);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes mt-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.mt-hero-bg {
+  animation: mt-image 1.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.mt-d1,
+.mt-d2,
+.mt-d3,
+.mt-d4,
+.mt-d5 {
+  animation: mt-in 1.05s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.mt-d1 {
+  animation-delay: 0.45s;
+}
+.mt-d2 {
+  animation-delay: 0.75s;
+}
+.mt-d3 {
+  animation-delay: 1.05s;
+}
+.mt-d4 {
+  animation-delay: 1.4s;
+}
+.mt-d5 {
+  animation-delay: 1.75s;
+}
+
+@supports (animation-timeline: view()) {
+  .mt-view {
+    animation: mt-in 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 42%;
+  }
+}
+
+.mt-marquee {
+  animation: mt-marquee 56s linear infinite;
+}
+
+.mt-marquee-wrap:hover .mt-marquee {
+  animation-play-state: paused;
+}
+
+.mt-scroll {
+  scrollbar-width: none;
+}
+
+.mt-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.mt-product {
+  filter: grayscale(1) contrast(1.05) brightness(0.97);
+  transition: filter 0.7s ease;
+}
+
+.group:hover .mt-product {
+  filter: grayscale(1) contrast(1.02) brightness(1);
+}
+
+@keyframes mt-unveil {
+  from {
+    clip-path: inset(14% 16% 18% 16%);
+    opacity: 0;
+  }
+  to {
+    clip-path: inset(0);
+    opacity: 1;
+  }
+}
+
+.mt-unveil {
+  animation: mt-unveil 1.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.mt-photo {
+  filter: grayscale(1) contrast(1.18) brightness(0.78);
+  transform: scale(1.001);
+  transition:
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.8s ease;
+}
+
+.group:hover .mt-photo {
+  transform: scale(1.045);
+  filter: grayscale(1) contrast(1.12) brightness(0.9);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mt-hero-bg,
+  .mt-d1,
+  .mt-d2,
+  .mt-d3,
+  .mt-d4,
+  .mt-d5,
+  .mt-view,
+  .mt-marquee,
+  .mt-unveil {
+    animation: none !important;
+  }
+
+  .mt-photo,
+  .group:hover .mt-photo,
+  .group:hover .mt-product {
+    transform: none;
+    transition: none;
+  }
+
+  html.mt-cursor,
+  html.mt-cursor body,
+  html.mt-cursor a,
+  html.mt-cursor button {
+    cursor: auto;
+  }
+
+  .mt-cursor-dot {
+    display: none !important;
+  }
 }
