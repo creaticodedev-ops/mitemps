@@ -42,8 +42,11 @@ export default async function Footer() {
             <Link href="/partenaires" className="mt-link block py-1 text-sm">
               Partenaires
             </Link>
-            <Link href="/search" className="mt-link block py-1 text-sm">
-              Produits
+            <Link href="/catalogue" className="mt-link block py-1 text-sm">
+              Catalogue
+            </Link>
+            <Link href="/categories" className="mt-link block py-1 text-sm">
+              Catégories
             </Link>
           </FooterColumn>
           <FooterColumn title="Contact">

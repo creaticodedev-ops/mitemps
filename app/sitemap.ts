@@ -1,61 +1,39 @@
-import { getCollections, getPages, getProducts } from "lib/shopify";
-import { baseUrl, validateEnvironmentVariables } from "lib/utils";
+import { getCategories, getProducts, getProjects } from "lib/catalog";
+import { baseUrl } from "lib/utils";
 import { MetadataRoute } from "next";
 
-type Route = {
-  url: string;
-  lastModified: string;
-};
-
-export const dynamic = "force-dynamic";
-
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  validateEnvironmentVariables();
-
-  const routesMap = [
+export default function sitemap(): MetadataRoute.Sitemap {
+  const routes = [
     "",
-    "/search",
+    "/catalogue",
+    "/categories",
     "/solutions",
     "/realisations",
     "/partenaires",
     "/a-propos",
     "/contact",
     "/devis",
+    "/mentions-legales",
+    "/confidentialite",
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString(),
   }));
 
-  const collectionsPromise = getCollections().then((collections) =>
-    collections.map((collection) => ({
-      url: `${baseUrl}${collection.path}`,
-      lastModified: collection.updatedAt,
-    })),
-  );
+  const categoryRoutes = getCategories().map((category) => ({
+    url: `${baseUrl}/categories/${category.handle}`,
+    lastModified: new Date().toISOString(),
+  }));
 
-  const productsPromise = getProducts({}).then((products) =>
-    products.map((product) => ({
-      url: `${baseUrl}/product/${product.handle}`,
-      lastModified: product.updatedAt,
-    })),
-  );
+  const productRoutes = getProducts().map((product) => ({
+    url: `${baseUrl}/product/${product.handle}`,
+    lastModified: new Date().toISOString(),
+  }));
 
-  const pagesPromise = getPages().then((pages) =>
-    pages.map((page) => ({
-      url: `${baseUrl}/${page.handle}`,
-      lastModified: page.updatedAt,
-    })),
-  );
+  const projectRoutes = getProjects().map((project) => ({
+    url: `${baseUrl}/realisations/${project.handle}`,
+    lastModified: new Date().toISOString(),
+  }));
 
-  let fetchedRoutes: Route[] = [];
-
-  try {
-    fetchedRoutes = (
-      await Promise.all([collectionsPromise, productsPromise, pagesPromise])
-    ).flat();
-  } catch (error) {
-    throw JSON.stringify(error, null, 2);
-  }
-
-  return [...routesMap, ...fetchedRoutes];
+  return [...routes, ...categoryRoutes, ...productRoutes, ...projectRoutes];
 }

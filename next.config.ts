@@ -1,4 +1,4 @@
-export default {
+const nextConfig = {
   experimental: {
     ppr: true,
     inlineCss: true,
@@ -6,17 +6,17 @@ export default {
   },
   images: {
     formats: ["image/avif", "image/webp"],
-    remotePatterns: [
+  },
+  async redirects() {
+    return [
+      { source: "/search", destination: "/catalogue", permanent: false },
       {
-        protocol: "https",
-        hostname: "cdn.shopify.com",
-        pathname: "/s/files/**",
+        source: "/search/:handle",
+        destination: "/categories/:handle",
+        permanent: false,
       },
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com",
-        pathname: "/**",
-      },
-    ],
+    ];
   },
 };
+
+export default nextConfig;

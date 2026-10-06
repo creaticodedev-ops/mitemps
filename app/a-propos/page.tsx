@@ -1,7 +1,7 @@
 import { PageFrame } from "components/brand/page-frame";
 import { QuoteBand } from "components/brand/quote-band";
 import Footer from "components/layout/footer";
-import { reasons, statSlots } from "lib/brand";
+import { reasons } from "lib/brand";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -79,21 +79,6 @@ export default function AboutPage() {
               </p>
             </article>
           ))}
-        </div>
-        <div className="px-5 py-16 md:px-10 lg:px-14">
-          <p className="text-[11px] tracking-[0.2em] text-[#7a7a7a] uppercase">
-            Indicateurs — à renseigner
-          </p>
-          <dl className="mt-8 grid grid-cols-2 gap-8 md:grid-cols-4">
-            {statSlots.map((label) => (
-              <div key={label}>
-                <dt className="text-[11px] tracking-[0.16em] text-[#888] uppercase">
-                  {label}
-                </dt>
-                <dd className="mt-3 text-5xl">—</dd>
-              </div>
-            ))}
-          </dl>
         </div>
       </PageFrame>
       <QuoteBand />

@@ -1,9 +1,7 @@
-import { CartProvider } from "components/cart/cart-context";
 import { Cursor } from "components/brand/cursor";
 import { Navbar } from "components/layout/navbar";
 import { Instrument_Serif } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
-import { getCart } from "lib/shopify";
 import { ReactNode } from "react";
 import { Toaster } from "sonner";
 import { baseUrl } from "lib/utils";
@@ -42,8 +40,6 @@ export default async function RootLayout({
 }: {
   children: ReactNode;
 }) {
-  const cart = getCart();
-
   return (
     <html
       lang="fr"
@@ -53,11 +49,10 @@ export default async function RootLayout({
         <a href="#contenu" className="skip-link">
           Aller au contenu
         </a>
-        <CartProvider cartPromise={cart}>
-          <Cursor />
-          <Navbar />
-          <main id="contenu">{children}</main>
-          <Toaster
+        <Cursor />
+        <Navbar />
+        <main id="contenu">{children}</main>
+        <Toaster
             closeButton
             theme="dark"
             toastOptions={{
@@ -68,7 +63,6 @@ export default async function RootLayout({
               },
             }}
           />
-        </CartProvider>
       </body>
     </html>
   );

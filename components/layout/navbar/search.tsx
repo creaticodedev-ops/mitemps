@@ -9,7 +9,7 @@ export default function Search() {
 
   return (
     <Form
-      action="/search"
+      action="/catalogue"
       className="w-max-[550px] relative w-full lg:w-80 xl:w-full"
     >
       <input
